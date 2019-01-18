@@ -1,0 +1,46 @@
+Last login: Thu Jan 17 12:39:15 on ttys000
+Catherines-MacBook:~ catherineshopping$ https://github.com/cathjunping88/miniprojects.git
+-bash: https://github.com/cathjunping88/miniprojects.git: No such file or directory
+Catherines-MacBook:~ catherineshopping$ git clone https://github.com/cathjunping88/miniprojects.git
+xcode-select: note: no developer tools were found at '/Applications/Xcode.app', requesting install. Choose an option in the dialog to download the command line developer tools.
+Catherines-MacBook:~ catherineshopping$ git clone https://github.com/cathjunping88/miniprojects.git
+Cloning into 'miniprojects'...
+warning: You appear to have cloned an empty repository.
+Catherines-MacBook:~ catherineshopping$ cd miniprojects/
+Catherines-MacBook:miniprojects catherineshopping$ ls
+Catherines-MacBook:miniprojects catherineshopping$ cp ../sliderule_dsi_json_exercise.ipynb .
+Catherines-MacBook:miniprojects catherineshopping$ ls
+sliderule_dsi_json_exercise.ipynb
+Catherines-MacBook:miniprojects catherineshopping$ git status
+On branch master
+
+No commits yet
+
+Untracked files:
+  (use "git add <file>..." to include in what will be committed)
+
+	sliderule_dsi_json_exercise.ipynb
+
+nothing added to commit but untracked files present (use "git add" to track)
+Catherines-MacBook:miniprojects catherineshopping$ git add .
+Catherines-MacBook:miniprojects catherineshopping$ git commit -m "my first commit"
+[master (root-commit) 296c7f2] my first commit
+ 1 file changed, 622 insertions(+)
+ create mode 100644 sliderule_dsi_json_exercise.ipynb
+Catherines-MacBook:miniprojects catherineshopping$ git push
+Username for 'https://github.com': cathjunping88
+Password for 'https://cathjunping88@github.com': 
+Counting objects: 3, done.
+Delta compression using up to 4 threads.
+Compressing objects: 100% (3/3), done.
+Writing objects: 100% (3/3), 5.32 KiB | 2.66 MiB/s, done.
+Total 3 (delta 0), reused 0 (delta 0)
+To https://github.com/cathjunping88/miniprojects.git
+ * [new branch]      master -> master
+Catherines-MacBook:miniprojects catherineshopping$ 
+
+
+
+
+
+
