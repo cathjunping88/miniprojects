@@ -1,1 +1,105 @@
 
+
+
+# First, import the relevant modules
+
+In [ ]:
+
+import requests
+
+# Now, call the Quandl API and pull out a small sample of the data (only one day) to get a glimpse
+# into the JSON structure that will be returned
+
+In [ ]:
+
+url = 'https://www.quandl.com/api/v3/datasets/FSE/AFX_X/data.json?api_key='+API_KEY\
++'&start_date=2018-05-18&end_date=2018-05-18'
+r = requests.get(url)
+
+# Inspect the JSON structure of the object you created, and take note of how nested it is,
+# as well as the overall structure
+
+These are your tasks for this mini project:
+
+    Collect data from the Franfurt Stock Exchange, for the ticker AFX_X, for the whole year 2017 (keep in mind that the date format is YYYY-MM-DD).
+    Convert the returned JSON object into a Python dictionary.
+    Calculate what the highest and lowest opening prices were for the stock in this period.
+    What was the largest change in any one day (based on High and Low price)?
+    What was the largest change between any two days (based on Closing Price)?
+    What was the average daily trading volume during this year?
+    (Optional) What was the median trading volume during this year. (Note: you may need to implement your own function for calculating the median.)
+
+
+1.Collect data from the Franfurt Stock Exchange, for the ticker AFX_X, for the whole year 2017 (keep in mind that the date format is YYYY-MM-DD).
+In [3]:
+
+url = 'https://www.quandl.com/api/v3/datasets/FSE/AFX_X/data.json?api_key='+API_KEY\
++'&start_date=2017-01-01&end_date=2017-12-31'
+r = requests.get(url)
+
+2. Convert the returned JSON object into a Python dictionary.
+In [4]:
+
+data = r.json()
+
+3. Calculate what the highest and lowest opening prices were for the stock in this period.
+In [5]:
+
+#Find the index of opening price
+idx = data['dataset_data']['column_names'].index('Open')
+#Some opening prices were None
+open_price = [day[idx] for day in data['dataset_data']['data'] if day[idx]]
+print('Highest and lowest opening prices in 2017 were {} and {}'.format(max(open_price), min(open_price)))
+
+Highest and lowest opening prices in 2017 were 53.11 and 34.0
+
+4. What was the largest change in any one day (based on High and Low price)?
+In [6]:
+
+#Find the index of high and low prices
+idx_high = data['dataset_data']['column_names'].index('High')
+idx_low = data['dataset_data']['column_names'].index('Low')
+#Calculate change
+change = [day[idx_high]-day[idx_low] for day in data['dataset_data']['data']]
+print('The largest change in any one day in 2017 was {:.2f}'.format(max(change)))
+
+The largest change in any one day in 2017 was 2.81
+
+5. What was the largest change between any two days (based on Closing Price)?
+In [7]:
+
+#Find the index of closing price
+idx = data['dataset_data']['column_names'].index('Close')
+#Extract closing price
+closing = [day[idx] for day in data['dataset_data']['data']]
+#Calculate change between everyday and the day before
+change_two_days = [abs(closing[index]-closing[index-1]) for index, value in enumerate(closing) if index > 0]
+print('The largest chagne between any two days in 2017 was {:.2f}'.format(max(change_two_days)))
+
+The largest chagne between any two days in 2017 was 2.56
+
+6. What was the average daily trading volume during this year?
+In [8]:
+
+#Find the index of volume
+idx = data['dataset_data']['column_names'].index('Traded Volume')
+#Extract trading volume
+volume = [day[idx] for day in data['dataset_data']['data']]
+#Since no third party packages are allowed, calculte the average the old fashioned way.
+average_volume = sum(volume)/len(volume)
+print('The average daily trading volumne in 2017 was {:.2f}'.format(average_volume))
+
+The average daily trading volumne in 2017 was 89124.34
+
+7. (Optional) What was the median trading volume during this year. (Note: you may need to implement your own function for calculating the median.)
+In [9]:
+
+#Sort volume first
+volume = sorted(volume)
+#Find the median based on definition of median
+if len(volume) % 2 == 1:
+    median_volume = volume[len(volume)//2]
+else:
+    median_volume = (volume[len(volume)//2] + volume[len(volume)//2-1]) / 2
+print('The median trading volume in 2017 was {:.2f}'.format(median_volume))
+
